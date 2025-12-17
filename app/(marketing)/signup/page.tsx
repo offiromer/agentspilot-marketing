@@ -285,6 +285,8 @@ export default function SignupPage() {
       }
 
       // Handle success based on whether email confirmation is required
+      const mainAppUrl = process.env.NEXT_PUBLIC_MAIN_APP_URL || 'http://localhost:3000';
+
       if (!session) {
         // Email confirmation required - redirect to home page
         setSuccessMessage(
@@ -292,9 +294,11 @@ export default function SignupPage() {
         );
         setTimeout(() => router.push('/'), 2000);
       } else {
-        // Email confirmation disabled - redirect to onboarding
+        // Email confirmation disabled - redirect to main app onboarding
         setSuccessMessage('Account created successfully! Redirecting to setup...');
-        setTimeout(() => router.push('/onboarding'), 1500);
+        setTimeout(() => {
+          window.location.href = `${mainAppUrl}/onboarding#access_token=${session.access_token}&refresh_token=${session.refresh_token}`;
+        }, 1500);
       }
     } catch (error) {
       console.error('Unexpected signup error:', error);

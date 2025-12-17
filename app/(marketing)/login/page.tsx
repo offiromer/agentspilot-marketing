@@ -112,18 +112,21 @@ export default function LoginPage() {
           console.error('Audit logging failed (non-critical):', auditError);
         }
 
-        // Check onboarding status and redirect accordingly
+        // Redirect to main app with session tokens
         const user = data.user;
+        const session = data.session;
         const onboardingCompleted = user?.user_metadata?.onboarding_completed;
 
+        const mainAppUrl = process.env.NEXT_PUBLIC_MAIN_APP_URL || 'http://localhost:3000';
+
         if (onboardingCompleted === false || onboardingCompleted === undefined) {
-          // User hasn't completed onboarding
-          console.log('User needs to complete onboarding, redirecting...');
-          router.push('/onboarding');
+          // User hasn't completed onboarding - redirect to main app onboarding
+          console.log('User needs to complete onboarding, redirecting to main app...');
+          window.location.href = `${mainAppUrl}/onboarding#access_token=${session?.access_token}&refresh_token=${session?.refresh_token}`;
         } else {
-          // Onboarding complete - go to dashboard
-          console.log('Login successful, redirecting to dashboard...');
-          router.push('/dashboard');
+          // Onboarding complete - redirect to main app dashboard
+          console.log('Login successful, redirecting to main app dashboard...');
+          window.location.href = `${mainAppUrl}/v2/dashboard#access_token=${session?.access_token}&refresh_token=${session?.refresh_token}`;
         }
       }
     } catch (error) {
