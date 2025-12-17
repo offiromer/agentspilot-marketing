@@ -92,58 +92,9 @@ export default function PricingPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-white overflow-hidden">
-      {/* Background Effects */}
-      <div className="fixed inset-0 pointer-events-none">
-        <motion.div
-          animate={{
-            backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
-          }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-orange-900/20 via-zinc-900/30 to-transparent bg-[length:200%_200%]"
-        />
-        <motion.div
-          animate={{
-            backgroundPosition: ['100% 100%', '0% 0%', '100% 100%'],
-          }}
-          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-orange-900/15 via-transparent to-transparent bg-[length:200%_200%]"
-        />
-        <motion.div
-          animate={{
-            x: [0, 150, 0],
-            y: [0, -150, 0],
-            scale: [1, 1.3, 1],
-            opacity: [0.15, 0.3, 0.15]
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-20 left-20 w-[500px] h-[500px] bg-orange-600/10 rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{
-            x: [0, -150, 0],
-            y: [0, 150, 0],
-            scale: [1, 1.4, 1],
-            opacity: [0.15, 0.3, 0.15]
-          }}
-          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-20 right-20 w-[500px] h-[500px] bg-orange-600/10 rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{
-            x: [0, 100, -100, 0],
-            y: [0, -100, 100, 0],
-            scale: [1, 1.2, 1.3, 1],
-            opacity: [0.1, 0.2, 0.15, 0.1]
-          }}
-          transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-orange-500/8 rounded-full blur-3xl"
-        />
-      </div>
-
-      <div className="relative z-10">
+    <div className="min-h-screen bg-zinc-950 text-white">
         {/* Header Section */}
-        <section className="relative z-10 pt-20 pb-16">
+        <section className="relative py-24 md:py-32 px-4 bg-zinc-950 border-b border-zinc-800">
           <div className="max-w-7xl mx-auto px-4 lg:px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -202,7 +153,7 @@ export default function PricingPage() {
         </section>
 
         {/* Calculator Section */}
-        <section className="relative z-10 py-16">
+        <section className="relative py-24 md:py-32 px-4 bg-zinc-900 border-b border-zinc-800">
           <div className="max-w-4xl mx-auto px-4 lg:px-6">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
@@ -219,7 +170,7 @@ export default function PricingPage() {
         </section>
 
         {/* Pricing Transparency Section */}
-        <section className="relative z-10 py-20">
+        <section className="relative py-24 md:py-32 px-4 bg-zinc-950 border-b border-zinc-800">
           <div className="max-w-6xl mx-auto px-4 lg:px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -242,7 +193,7 @@ export default function PricingPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
               >
-                <div className="bg-zinc-900/90 backdrop-blur-xl rounded-xl p-6 border border-white/10 hover:border-orange-400/30 transition-all duration-300 h-full">
+                <div className="bg-zinc-900/90 backdrop-blur-xl p-6 border border-zinc-800 hover:border-orange-400/30 transition-all duration-300 h-full">
                   <div className="mb-4"><Calculator className="w-12 h-12 text-orange-400" /></div>
                   <h3 className="text-xl font-bold mb-3">1. Calculate</h3>
                   <p className="text-sm text-slate-400 leading-relaxed">
@@ -257,11 +208,11 @@ export default function PricingPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <div className="bg-zinc-900/90 backdrop-blur-xl rounded-xl p-6 border border-white/10 hover:border-orange-400/30 transition-all duration-300 h-full">
+                <div className="bg-zinc-900/90 backdrop-blur-xl p-6 border border-zinc-800 hover:border-orange-400/30 transition-all duration-300 h-full">
                   <div className="mb-4"><Zap className="w-12 h-12 text-amber-400" /></div>
                   <h3 className="text-xl font-bold mb-3">2. Subscribe</h3>
                   <p className="text-sm text-slate-400 leading-relaxed">
-                    Your Pilot Credit subscription is set to the calculated amount. Update anytime as your needs change - it's completely flexible.
+                    Your Pilot Credit subscription is set to the calculated amount. Update anytime as your needs change, it's completely flexible.
                   </p>
                 </div>
               </motion.div>
@@ -272,7 +223,7 @@ export default function PricingPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.3 }}
               >
-                <div className="bg-zinc-900/90 backdrop-blur-xl rounded-xl p-6 border border-white/10 hover:border-orange-400/30 transition-all duration-300 h-full">
+                <div className="bg-zinc-900/90 backdrop-blur-xl p-6 border border-zinc-800 hover:border-orange-400/30 transition-all duration-300 h-full">
                   <div className="mb-4"><Zap className="w-12 h-12 text-orange-400" /></div>
                   <h3 className="text-xl font-bold mb-3">3. Run & Scale</h3>
                   <p className="text-sm text-slate-400 leading-relaxed">
@@ -285,7 +236,7 @@ export default function PricingPage() {
         </section>
 
         {/* FAQ Section */}
-        <section id="faq" className="relative z-10 py-20">
+        <section id="faq" className="relative py-24 md:py-32 px-4 bg-zinc-900 border-b border-zinc-800">
           <div className="max-w-4xl mx-auto px-4 lg:px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -309,7 +260,7 @@ export default function PricingPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="bg-gradient-to-br from-slate-900/50 to-slate-800/50 backdrop-blur-xl rounded-2xl p-6 md:p-8 border border-white/10 hover:border-white/20 transition"
+                  className="bg-zinc-900/90 backdrop-blur-xl p-6 md:p-8 border border-zinc-800 hover:border-zinc-700 transition"
                 >
                   <h3 className="text-lg md:text-xl font-bold mb-3 text-white">{faq.question}</h3>
                   <p className="text-sm md:text-base text-slate-400 leading-relaxed">{faq.answer}</p>
@@ -320,7 +271,7 @@ export default function PricingPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="relative z-10 py-20">
+        <section className="relative py-24 md:py-32 px-4 bg-zinc-950">
           <div className="max-w-4xl mx-auto px-4 lg:px-6">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
@@ -328,7 +279,7 @@ export default function PricingPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <div className="bg-gradient-to-br from-zinc-900/95 to-zinc-800/95 backdrop-blur-2xl rounded-3xl p-8 md:p-12 border border-white/20 text-center space-y-8">
+              <div className="bg-zinc-900/95 backdrop-blur-2xl p-8 md:p-12 border border-zinc-800 text-center space-y-8">
                 <div className="space-y-2">
                   <h3 className="text-2xl md:text-3xl font-bold text-white">Ready to Automate?</h3>
                   <p className="text-sm md:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
@@ -338,7 +289,7 @@ export default function PricingPage() {
                 </div>
                 <button
                   onClick={() => router.push('/signup')}
-                  className="group relative px-6 py-2.5 bg-orange-500 rounded-lg font-bold text-sm text-white hover:shadow-xl hover:shadow-orange-500/50 hover:bg-orange-600 transition-all duration-300 hover:scale-105 overflow-hidden"
+                  className="group relative px-6 py-2.5 bg-orange-500 font-bold text-sm text-white hover:shadow-xl hover:shadow-orange-500/50 hover:bg-orange-600 transition-all duration-300 hover:scale-105 overflow-hidden"
                 >
                   <span className="relative flex items-center justify-center gap-2">
                     Start Free Trial
@@ -348,7 +299,6 @@ export default function PricingPage() {
             </motion.div>
           </div>
         </section>
-      </div>
     </div>
   )
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
   Brain,
@@ -20,57 +21,10 @@ const AboutPage = () => {
   const [hoveredSection, setHoveredSection] = useState<number | null>(null);
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-white overflow-hidden">
-      {/* Background Effects */}
-      <div className="fixed inset-0 pointer-events-none">
-        <motion.div
-          animate={{
-            backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
-          }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-orange-900/20 via-zinc-900/30 to-transparent bg-[length:200%_200%]"
-        />
-        <motion.div
-          animate={{
-            backgroundPosition: ['100% 100%', '0% 0%', '100% 100%'],
-          }}
-          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-orange-900/15 via-transparent to-transparent bg-[length:200%_200%]"
-        />
-        <motion.div
-          animate={{
-            x: [0, 150, 0],
-            y: [0, -150, 0],
-            scale: [1, 1.3, 1],
-            opacity: [0.15, 0.3, 0.15]
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-20 left-20 w-[500px] h-[500px] bg-orange-600/10 rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{
-            x: [0, -150, 0],
-            y: [0, 150, 0],
-            scale: [1, 1.4, 1],
-            opacity: [0.15, 0.3, 0.15]
-          }}
-          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-20 right-20 w-[500px] h-[500px] bg-orange-600/10 rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{
-            x: [0, 100, -100, 0],
-            y: [0, -100, 100, 0],
-            scale: [1, 1.2, 1.3, 1],
-            opacity: [0.1, 0.2, 0.15, 0.1]
-          }}
-          transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-orange-500/8 rounded-full blur-3xl"
-        />
-      </div>
+    <div className="min-h-screen bg-zinc-950 text-white">
 
       {/* Hero Section */}
-      <section className="relative z-10 pt-20 pb-32">
+      <section className="relative py-24 md:py-32 px-4 bg-zinc-950 border-b border-zinc-800">
         <div className="max-w-7xl mx-auto px-4 lg:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -97,9 +51,7 @@ const AboutPage = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-base md:text-lg text-slate-300 max-w-4xl mx-auto mb-8 leading-relaxed"
             >
-              We're building the world's first AI Workforce for everyone — intelligent agents that understand your intent
-              <br />
-              and execute your vision across all your tools, without a single line of code.
+              We're building the world's first AI Workforce for everyone intelligent agents that understand your intentand execute your vision across all your tools, without a single line of code.
             </motion.p>
             
             <motion.div
@@ -108,17 +60,20 @@ const AboutPage = () => {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="flex flex-col sm:flex-row items-center justify-center gap-4"
             >
-              <button className="group px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-orange-500/50 transition flex items-center gap-2">
+              <Link
+                href="/signup"
+                className="group px-8 py-4 bg-orange-500 hover:bg-orange-600 font-bold text-lg hover:shadow-2xl hover:shadow-orange-500/50 transition flex items-center gap-2"
+              >
                 See It In Action
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </Link>
             </motion.div>
           </motion.div>
         </div>
       </section>
 
       {/* The Vision Section */}
-      <section className="relative z-10 py-16">
+      <section className="relative py-24 md:py-32 px-4 bg-zinc-900 border-b border-zinc-800">
         <div className="max-w-7xl mx-auto px-4 lg:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -145,9 +100,9 @@ const AboutPage = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <div className="bg-gradient-to-br from-zinc-900/90 to-zinc-800/90 backdrop-blur-xl rounded-2xl p-8 md:p-10 border border-white/10 h-full flex flex-col">
+              <div className="bg-zinc-900/90 backdrop-blur-xl p-8 md:p-10 border border-zinc-800 h-full flex flex-col">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="p-2.5 bg-red-500/10 rounded-xl">
+                  <div className="p-2.5 bg-red-500/10">
                     <AlertCircle className="w-7 h-7 text-red-400" />
                   </div>
                   <h3 className="text-2xl md:text-3xl font-black text-white">
@@ -157,23 +112,23 @@ const AboutPage = () => {
 
                 <div className="space-y-6 flex-1">
                   <div className="flex gap-3">
-                    <div className="w-1.5 bg-red-400/30 rounded-full flex-shrink-0"></div>
+                    <div className="w-1.5 bg-red-400/30 flex-shrink-0"></div>
                     <p className="text-base md:text-lg text-slate-300 leading-relaxed">
-                      Professionals spend <span className="text-white font-semibold">hours on repetitive digital tasks</span> — copying data between tools, sending routine emails, organizing files, tracking deadlines.
+                      Professionals spend <span className="text-white font-semibold">hours on repetitive digital tasks</span> copying data between tools, sending routine emails, organizing files, tracking deadlines.
                     </p>
                   </div>
 
                   <div className="flex gap-3">
-                    <div className="w-1.5 bg-red-400/30 rounded-full flex-shrink-0"></div>
+                    <div className="w-1.5 bg-red-400/30 flex-shrink-0"></div>
                     <p className="text-base md:text-lg text-slate-300 leading-relaxed">
                       Existing automation requires <span className="text-white font-semibold">technical setup, complex workflows, and constant maintenance</span>. Most people want outcomes, not setup screens.
                     </p>
                   </div>
 
                   <div className="flex gap-3">
-                    <div className="w-1.5 bg-red-400/30 rounded-full flex-shrink-0"></div>
+                    <div className="w-1.5 bg-red-400/30 flex-shrink-0"></div>
                     <p className="text-base md:text-lg text-slate-300 leading-relaxed">
-                      They want to <span className="text-white font-semibold">describe what they need and see it work</span> — instantly.
+                      They want to <span className="text-white font-semibold">describe what they need and see it work</span> instantly.
                     </p>
                   </div>
                 </div>
@@ -187,9 +142,9 @@ const AboutPage = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <div className="bg-gradient-to-br from-orange-500/10 via-zinc-900/90 to-zinc-800/90 backdrop-blur-xl rounded-2xl p-8 md:p-10 border border-orange-400/30 h-full flex flex-col">
+              <div className="bg-zinc-900/90 backdrop-blur-xl p-8 md:p-10 border border-orange-400/30 h-full flex flex-col">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="p-2.5 bg-orange-500/20 rounded-xl">
+                  <div className="p-2.5 bg-orange-500/20">
                     <Sparkles className="w-7 h-7 text-orange-400" />
                   </div>
                   <h3 className="text-2xl md:text-3xl font-black text-white">
@@ -199,21 +154,21 @@ const AboutPage = () => {
 
                 <div className="space-y-6 flex-1">
                   <div className="flex gap-3">
-                    <div className="w-1.5 bg-orange-400/50 rounded-full flex-shrink-0"></div>
+                    <div className="w-1.5 bg-orange-400/50 flex-shrink-0"></div>
                     <p className="text-base md:text-lg text-slate-200 leading-relaxed">
-                      AgentPilot <span className="text-orange-400 font-semibold">transforms natural language into intelligent agents</span>. Simply describe your goal, and our AI understands your intent, designs the workflow, and executes it seamlessly.
+                      AgentsPilot <span className="text-orange-400 font-semibold">transforms natural language into intelligent agents</span>. Simply describe your goal, and our AI understands your intent, designs the workflow, and executes it seamlessly.
                     </p>
                   </div>
 
                   <div className="flex gap-3">
-                    <div className="w-1.5 bg-orange-400/50 rounded-full flex-shrink-0"></div>
+                    <div className="w-1.5 bg-orange-400/50 flex-shrink-0"></div>
                     <p className="text-base md:text-lg text-slate-200 leading-relaxed">
                       <span className="text-white font-semibold">No scripts. No complex integrations. No technical knowledge required.</span>
                     </p>
                   </div>
 
                   <div className="flex gap-3">
-                    <div className="w-1.5 bg-orange-400/50 rounded-full flex-shrink-0"></div>
+                    <div className="w-1.5 bg-orange-400/50 flex-shrink-0"></div>
                     <p className="text-base md:text-lg text-slate-200 leading-relaxed">
                       Just <span className="text-orange-400 font-semibold">human ideas becoming automated reality</span> in seconds.
                     </p>
@@ -221,14 +176,14 @@ const AboutPage = () => {
                 </div>
 
                 <div className="mt-8 pt-6 border-t border-orange-400/20">
-                  <a
+                  <Link
                     href="/signup"
-                    className="group px-6 py-3.5 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 rounded-xl font-bold text-white transition-all duration-300 hover:shadow-2xl hover:shadow-orange-500/50 hover:scale-[1.02] flex items-center justify-center gap-2"
+                    className="group px-6 py-3.5 bg-orange-500 hover:bg-orange-600 font-bold text-white transition-all duration-300 hover:shadow-2xl hover:shadow-orange-500/50 flex items-center justify-center gap-2"
                   >
                     <Sparkles className="w-5 h-5" />
                     Start Building Free
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </motion.div>
@@ -237,7 +192,7 @@ const AboutPage = () => {
       </section>
 
       {/* How It Works Section */}
-      <section className="relative z-10 py-32 bg-gradient-to-b from-transparent via-slate-900/20 to-transparent">
+      <section className="relative py-24 md:py-32 px-4 bg-zinc-950 border-b border-zinc-800">
         <div className="max-w-7xl mx-auto px-4 lg:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -275,8 +230,8 @@ const AboutPage = () => {
               {
                 step: "03",
                 title: "Instant Build",
-                description: "AgentPilot designs the workflow, connects tools, and configures everything automatically.",
-                icon: <Rocket className="w-8 h-8 text-green-400" />,
+                description: "AgentsPilot designs the workflow, connects tools, and configures everything automatically.",
+                icon: <Rocket className="w-8 h-8 text-orange-400" />,
                 color: "pink"
               },
               {
@@ -297,7 +252,7 @@ const AboutPage = () => {
                 onHoverStart={() => setHoveredSection(index)}
                 onHoverEnd={() => setHoveredSection(null)}
               >
-                <div className="bg-zinc-900/90 backdrop-blur-xl rounded-2xl p-8 border border-white/10 hover:border-orange-400/30 transition-all duration-300 h-full text-center">
+                <div className="bg-zinc-900/90 backdrop-blur-xl p-8 border border-zinc-800 hover:border-orange-400/30 transition-all duration-300 h-full text-center">
                   <div className="text-sm font-bold text-slate-500 mb-2">STEP {item.step}</div>
                   <div className="mb-6 flex justify-center">
                     <motion.div
@@ -317,42 +272,40 @@ const AboutPage = () => {
       </section>
 
       {/* Philosophy Section */}
-      <section className="relative z-10 py-32">
+      <section className="relative py-24 md:py-32 px-4 bg-zinc-900 border-b border-zinc-800">
         <div className="max-w-6xl mx-auto px-4 lg:px-6">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative group"
+            className="text-center"
           >
-            <div className="bg-gradient-to-br from-zinc-900/95 to-zinc-800/95 backdrop-blur-2xl rounded-3xl p-12 md:p-16 border border-white/20 text-center">
-              <h2 className="text-3xl md:text-4xl font-black mb-8">
-                <span className="text-orange-400">
-                  Our Philosophy
-                </span>
-              </h2>
-              
-              <div className="grid md:grid-cols-2 gap-8 text-left max-w-4xl mx-auto">
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="text-xl font-bold text-white mb-2">AI Should Work for You</h3>
-                    <p className="text-slate-300">Not overwhelm you with complexity. Intelligence should amplify human capability, not replace human judgment.</p>
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-white mb-2">Human Ideas First</h3>
-                    <p className="text-slate-300">The best automations start with human creativity and intent, not technical specifications.</p>
-                  </div>
+            <h2 className="text-3xl md:text-4xl font-black mb-12">
+              <span className="text-orange-400">
+                Our Philosophy
+              </span>
+            </h2>
+
+            <div className="grid md:grid-cols-2 gap-8 text-left max-w-4xl mx-auto">
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-2">AI Should Work for You</h3>
+                  <p className="text-slate-300">Not overwhelm you with complexity. Intelligence should amplify human capability, not replace human judgment.</p>
                 </div>
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="text-xl font-bold text-white mb-2">Everyone Deserves AI Power</h3>
-                    <p className="text-slate-300">Intelligent automation shouldn't require engineering expertise. It should be as natural as conversation.</p>
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-white mb-2">Trust Through Transparency</h3>
-                    <p className="text-slate-300">You should always understand what your agents do, how they work, and maintain full control.</p>
-                  </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-2">Human Ideas First</h3>
+                  <p className="text-slate-300">The best automations start with human creativity and intent, not technical specifications.</p>
+                </div>
+              </div>
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-2">Everyone Deserves AI Power</h3>
+                  <p className="text-slate-300">Intelligent automation shouldn't require engineering expertise. It should be as natural as conversation.</p>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-2">Trust Through Transparency</h3>
+                  <p className="text-slate-300">You should always understand what your agents do, how they work, and maintain full control.</p>
                 </div>
               </div>
             </div>
@@ -360,8 +313,8 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* Behind AgentPilot Section */}
-      <section className="relative z-10 py-32">
+      {/* Behind AgentsPilot Section */}
+      <section className="relative py-24 md:py-32 px-4 bg-zinc-950 border-b border-zinc-800">
         <div className="max-w-6xl mx-auto px-4 lg:px-6">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -369,24 +322,24 @@ const AboutPage = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="bg-gradient-to-br from-zinc-900/95 to-zinc-800/95 backdrop-blur-2xl rounded-3xl p-12 md:p-16 border border-white/20">
+            <div className="bg-zinc-900/95 backdrop-blur-2xl p-12 md:p-16 border border-zinc-800">
               <h2 className="text-3xl md:text-4xl font-black mb-8 text-center">
                 <span className="text-orange-400">
-                  Behind AgentPilot
+                  Behind AgentsPilot
                 </span>
               </h2>
-              
+
               <div className="space-y-6 text-slate-300 max-w-4xl mx-auto text-center">
                 <p className="text-xl leading-relaxed">
-                  AgentPilot was born from a simple frustration: watching brilliant professionals 
+                  AgentsPilot was born from a simple frustration: watching brilliant professionals
                   waste hours on repetitive digital tasks that should be automated.
                 </p>
                 <p className="text-xl leading-relaxed">
-                  We experienced firsthand how existing automation tools failed 
-                  non-technical users. AgentPilot represents a fundamental shift in how we think about AI and work.
+                  We experienced firsthand how existing automation tools failed
+                  non-technical users. AgentsPilot represents a fundamental shift in how we think about AI and work.
                 </p>
                 <p className="text-xl leading-relaxed">
-                  We believe the future isn't about replacing humans with AI — it's about giving 
+                  We believe the future isn't about replacing humans with AI, it's about giving 
                   every professional their own intelligent pilot to handle the mundane, 
                   so they can focus on what truly matters.
                 </p>
@@ -401,7 +354,7 @@ const AboutPage = () => {
       </section>
 
       {/* Future of Work Section */}
-      <section className="relative z-10 py-32 bg-gradient-to-b from-transparent via-slate-900/20 to-transparent">
+      <section className="relative py-24 md:py-32 px-4 bg-zinc-900 border-b border-zinc-800">
         <div className="max-w-7xl mx-auto px-4 lg:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -429,7 +382,7 @@ const AboutPage = () => {
               },
               {
                 title: "Cross-Tool Collaboration",
-                description: "Agents will seamlessly coordinate across all your tools — Gmail, Slack, Notion, CRM — creating unified workflows.",
+                description: "Agents will seamlessly coordinate across all your tools Gmail, Slack, Notion, CRM creating unified workflows.",
                 icon: <Link2 className="w-12 h-12 text-orange-400" />
               },
               {
@@ -444,7 +397,7 @@ const AboutPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
-                className="bg-zinc-900/90 backdrop-blur-xl rounded-2xl p-8 border border-white/10 hover:border-orange-400/30 transition-all duration-300 text-center"
+                className="bg-zinc-900/90 backdrop-blur-xl p-8 border border-zinc-800 hover:border-orange-400/30 transition-all duration-300 text-center"
               >
                 <div className="flex justify-center mb-6">{item.icon}</div>
                 <h3 className="text-xl font-bold mb-4 text-white">{item.title}</h3>
@@ -456,7 +409,7 @@ const AboutPage = () => {
       </section>
 
       {/* Mission Statement */}
-      <section className="relative z-10 py-32">
+      <section className="relative py-24 md:py-32 px-4 bg-zinc-950 border-b border-zinc-800">
         <div className="max-w-4xl mx-auto px-4 lg:px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -464,15 +417,14 @@ const AboutPage = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="bg-gradient-to-br from-zinc-900/95 to-zinc-800/95 backdrop-blur-2xl rounded-3xl p-12 md:p-16 border border-white/20">
+            <div className="bg-zinc-900/95 backdrop-blur-2xl p-12 md:p-16 border border-zinc-800">
               <h2 className="text-2xl md:text-3xl font-black mb-6">
                 <span className="text-orange-400">
                   Our Mission
                 </span>
               </h2>
               <p className="text-xl md:text-2xl text-white font-light leading-relaxed">
-                To make intelligent automation accessible to everyone —
-                one natural-language agent at a time.
+                To make intelligent automation accessible to everyone one natural-language agent at a time.
               </p>
             </div>
           </motion.div>
@@ -480,7 +432,7 @@ const AboutPage = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="relative z-10 py-32">
+      <section className="relative py-24 md:py-32 px-4 bg-zinc-900">
         <div className="max-w-4xl mx-auto px-4 lg:px-6">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -488,7 +440,7 @@ const AboutPage = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="bg-gradient-to-br from-zinc-900/95 to-zinc-800/95 backdrop-blur-2xl rounded-3xl p-12 md:p-16 border border-white/20 text-center">
+            <div className="bg-zinc-900/95 backdrop-blur-2xl p-12 md:p-16 border border-zinc-800 text-center">
               <h2 className="text-3xl md:text-4xl font-black mb-6">
                 Ready to Meet
                 <br />
@@ -501,10 +453,13 @@ const AboutPage = () => {
                 Build your first agent in under 2 minutes.
               </p>
               
-              <button className="px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-orange-500/50 transition flex items-center gap-2 mx-auto">
+              <Link
+                href="/signup"
+                className="px-8 py-4 bg-orange-500 hover:bg-orange-600 font-bold text-lg hover:shadow-2xl hover:shadow-orange-500/50 transition flex items-center gap-2 mx-auto"
+              >
                 Create Your First Agent
                 <ArrowRight className="w-5 h-5" />
-              </button>
+              </Link>
 
               <div className="flex items-center justify-center gap-6 mt-8 text-sm text-slate-400">
                 <div className="flex items-center gap-2">

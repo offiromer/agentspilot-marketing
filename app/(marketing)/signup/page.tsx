@@ -25,11 +25,10 @@ export default function SignupPage() {
     setIsLoading(true);
 
     try {
-      const mainAppUrl = process.env.NEXT_PUBLIC_MAIN_APP_URL || 'http://localhost:3000';
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${mainAppUrl}/auth/callback`,
+          redirectTo: `${window.location.origin}/auth/callback`,
         }
       });
 
@@ -293,12 +292,9 @@ export default function SignupPage() {
         );
         setTimeout(() => router.push('/'), 2000);
       } else {
-        // Email confirmation disabled - redirect to main app onboarding
+        // Email confirmation disabled - redirect to onboarding
         setSuccessMessage('Account created successfully! Redirecting to setup...');
-        const mainAppUrl = process.env.NEXT_PUBLIC_MAIN_APP_URL || 'http://localhost:3000';
-        setTimeout(() => {
-          window.location.href = `${mainAppUrl}/onboarding`;
-        }, 1500);
+        setTimeout(() => router.push('/onboarding'), 1500);
       }
     } catch (error) {
       console.error('Unexpected signup error:', error);
@@ -310,91 +306,122 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white overflow-hidden">
-      {/* Background Effects - Matching Landing Page */}
-      <div className="fixed inset-0 pointer-events-none">
-        <motion.div
-          animate={{
-            backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
-          }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-orange-900/20 via-zinc-900/30 to-transparent bg-[length:200%_200%]"
-        />
-        <motion.div
-          animate={{
-            backgroundPosition: ['100% 100%', '0% 0%', '100% 100%'],
-          }}
-          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-orange-900/15 via-transparent to-transparent bg-[length:200%_200%]"
-        />
-        <motion.div
-          animate={{
-            x: [0, 150, 0],
-            y: [0, -150, 0],
-            scale: [1, 1.3, 1],
-            opacity: [0.15, 0.3, 0.15]
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-20 left-20 w-[500px] h-[500px] bg-orange-600/10 rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{
-            x: [0, -150, 0],
-            y: [0, 150, 0],
-            scale: [1, 1.4, 1],
-            opacity: [0.15, 0.3, 0.15]
-          }}
-          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-20 right-20 w-[500px] h-[500px] bg-orange-600/10 rounded-full blur-3xl"
-        />
-      </div>
-
-      <div className="relative z-10 min-h-screen flex items-center justify-center px-4 py-12">
-        <div className="w-full max-w-md">
-          {/* Logo/Brand */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-8"
-          >
-            <Link href="/" className="inline-block mb-4">
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="mx-auto inline-block"
-              >
-                <Image
-                  src="/images/AgentPilot_Logo.png"
-                  alt="AgentsPilots"
-                  width={100}
-                  height={100}
-                  className="transition-transform duration-200"
-                  priority
-                />
-              </motion.div>
-            </Link>
-            <h1 className="text-3xl font-black mb-1">
-              <span className="text-orange-400">
-                Create Account
-              </span>
-            </h1>
-            <p className="text-slate-400 text-sm">Join the AI workforce revolution</p>
-          </motion.div>
-
-          {/* Signup Form */}
+    <>
+      {/* Header Section */}
+      <section className="relative py-24 md:py-32 px-4 bg-zinc-950 border-b border-zinc-800">
+        <div className="max-w-7xl mx-auto px-4 lg:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.8 }}
+            className="text-center space-y-4"
           >
-            <div className="bg-gradient-to-br from-zinc-900/95 to-zinc-800/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/20 p-6">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-black leading-tight">
+              <span className="text-orange-400 block">
+                Create Your Account
+              </span>
+              <span className="text-white block">
+                Join the AI Workforce
+              </span>
+            </h1>
+            <p className="text-base md:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
+              Start building intelligent agents in minutes. No credit card required.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Two-Column Signup Section */}
+      <section className="relative py-24 md:py-32 px-4 bg-zinc-900">
+        <div className="max-w-7xl mx-auto px-4 lg:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+
+            {/* Left Column - Information */}
+            <motion.div
+              initial={{ opacity: 0, x: -40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="space-y-8"
+            >
+              <div>
+                <h2 className="text-2xl md:text-3xl font-black text-white mb-4">
+                  Why AgentsPilot?
+                </h2>
+                <p className="text-base md:text-lg text-slate-300 leading-relaxed">
+                  Transform natural language into intelligent agents that automate your work across all your tools.
+                </p>
+              </div>
+
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-orange-500/20 border border-orange-400/30 flex items-center justify-center">
+                    <svg className="w-6 h-6 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-white mb-1">Instant Setup</h3>
+                    <p className="text-slate-400">Create your first agent in under 2 minutes. No technical knowledge required.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-blue-500/20 border border-blue-400/30 flex items-center justify-center">
+                    <svg className="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-white mb-1">Enterprise Security</h3>
+                    <p className="text-slate-400">Bank-level encryption and SOC 2 compliance to keep your data safe.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-green-500/20 border border-green-400/30 flex items-center justify-center">
+                    <svg className="w-6 h-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-white mb-1">Free Trial Included</h3>
+                    <p className="text-slate-400">10,417 free Pilot Credits to get started. No credit card needed.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-6 border-t border-zinc-800">
+                <h3 className="text-lg font-bold text-white mb-3">What You Get</h3>
+                <ul className="space-y-2">
+                  {[
+                    '10,417 free Pilot Credits',
+                    'All integrations included',
+                    'Flexible credit-based pricing',
+                    'Cancel anytime'
+                  ].map((item, idx) => (
+                    <li key={idx} className="flex items-center gap-2 text-slate-300">
+                      <div className="w-1.5 h-1.5 bg-orange-400 rounded-full"></div>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+
+            {/* Right Column - Signup Form */}
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <div className="bg-zinc-900/90 backdrop-blur-xl border border-zinc-800 p-6 md:p-8 h-full">
               <form onSubmit={handleSignup} className="space-y-4">
 
                 {errorMessage && (
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-red-500/10 border border-red-500/30 rounded-xl p-4"
+                    className="bg-red-500/10 border border-red-500/30 p-4"
                   >
                     <p className="text-red-300 text-sm">{errorMessage}</p>
                   </motion.div>
@@ -403,7 +430,7 @@ export default function SignupPage() {
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-green-500/10 border border-green-500/30 rounded-xl p-4"
+                    className="bg-green-500/10 border border-green-500/30 p-4"
                   >
                     <p className="text-green-300 text-sm">{successMessage}</p>
                   </motion.div>
@@ -418,7 +445,7 @@ export default function SignupPage() {
                     id="fullName"
                     type="text"
                     placeholder="Enter your full name"
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
+                    className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     disabled={isLoading}
@@ -436,7 +463,7 @@ export default function SignupPage() {
                       id="email"
                       type="email"
                       placeholder="Enter your email"
-                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
+                      className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                       value={email}
                       onChange={(e) => {
                         setEmail(e.target.value);
@@ -463,7 +490,7 @@ export default function SignupPage() {
                       id="password"
                       type={showPassword ? 'text' : 'password'}
                       placeholder="Enter your password"
-                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 pr-12"
+                      className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 pr-12"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       disabled={isLoading}
@@ -517,7 +544,7 @@ export default function SignupPage() {
                     id="confirmPassword"
                     type="password"
                     placeholder="Re-enter your password"
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
+                    className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     disabled={isLoading}
@@ -528,7 +555,7 @@ export default function SignupPage() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 disabled:from-slate-600 disabled:to-slate-700 text-white font-bold py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] disabled:transform-none disabled:cursor-not-allowed shadow-lg hover:shadow-2xl hover:shadow-orange-500/50"
+                  className="w-full bg-orange-500 hover:bg-orange-600 disabled:bg-slate-700 text-white font-bold py-3 px-4 transition-all duration-200 disabled:cursor-not-allowed"
                 >
                   {isLoading ? 'Creating Account...' : 'Sign Up'}
                 </button>
@@ -545,7 +572,7 @@ export default function SignupPage() {
                   type="button"
                   onClick={handleGoogleSignUp}
                   disabled={isLoading}
-                  className="w-full bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] disabled:transform-none disabled:cursor-not-allowed disabled:opacity-50 flex items-center justify-center gap-3"
+                  className="w-full bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 hover:border-zinc-600 text-white font-semibold py-3 px-4 transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50 flex items-center justify-center gap-3"
                 >
                   <svg className="w-5 h-5" viewBox="0 0 24 24">
                     <path
@@ -574,39 +601,37 @@ export default function SignupPage() {
                     By signing up with Google, you agree to our terms. If you already have an account, you'll be signed in.
                   </p>
                 </div>
-
-                {/* Back to Login */}
-                <div className="text-center pt-1">
-                  <p className="text-sm text-slate-400">
-                    Already have an account?{' '}
-                    <Link
-                      href="/login"
-                      className="text-orange-400 hover:text-orange-300 transition-all duration-200 font-bold"
-                    >
-                      Log in here
-                    </Link>
-                  </p>
-                </div>
               </form>
-            </div>
-          </motion.div>
+              </div>
+            </motion.div>
 
-          {/* Back to Home */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-center mt-6"
-          >
-            <Link
-              href="/"
-              className="text-sm text-slate-500 hover:text-slate-300 transition-colors duration-200"
-            >
-              ← Back to Home
-            </Link>
-          </motion.div>
+          </div>
         </div>
-      </div>
-    </div>
+      </section>
+
+      {/* Footer Info Section */}
+      <section className="relative py-12 px-4 bg-zinc-950 border-t border-zinc-800">
+        <div className="max-w-7xl mx-auto px-4 lg:px-6">
+          <div className="text-center space-y-4">
+            <p className="text-slate-400 text-sm">
+              Already have an account?{' '}
+              <Link href="/login" className="text-orange-400 hover:text-orange-300 font-bold transition-colors">
+                Sign in here
+              </Link>
+            </p>
+            <p className="text-slate-500 text-xs">
+              By creating an account, you agree to our{' '}
+              <Link href="/terms" className="text-slate-400 hover:text-white transition-colors">
+                Terms of Service
+              </Link>
+              {' '}and{' '}
+              <Link href="/privacy" className="text-slate-400 hover:text-white transition-colors">
+                Privacy Policy
+              </Link>
+            </p>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

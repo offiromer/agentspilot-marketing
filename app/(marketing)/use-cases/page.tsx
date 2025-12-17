@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
   Mail,
@@ -235,7 +236,7 @@ const UseCasesPage = () => {
             </h1>
 
             <p className="text-base md:text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
-              See how AgentPilot powers automations across every industry — no coding needed, just natural language.
+              See how AgentsPilot powers automations across every industry — no coding needed, just natural language.
             </p>
           </motion.div>
         </div>
@@ -254,10 +255,10 @@ const UseCasesPage = () => {
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-5 py-2 rounded-lg font-medium text-sm transition-all duration-300 ${
+                className={`px-5 py-2 font-medium text-sm transition-all duration-300 ${
                   selectedCategory === category
                     ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
-                    : 'bg-zinc-800/50 text-slate-300 hover:bg-zinc-700/70 border border-white/10'
+                    : 'bg-zinc-800 text-slate-300 hover:bg-zinc-700 border border-zinc-700'
                 }`}
               >
                 {category}
@@ -342,10 +343,13 @@ const UseCasesPage = () => {
                 Join thousands of professionals automating their work in minutes, not hours.
               </p>
 
-              <button className="px-6 py-2.5 bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg font-bold text-sm hover:shadow-2xl hover:shadow-orange-500/50 transition flex items-center gap-2 mx-auto hover:scale-105">
+              <Link
+                href="/signup"
+                className="px-6 py-2.5 bg-orange-500 hover:bg-orange-600 font-bold text-sm hover:shadow-2xl hover:shadow-orange-500/50 transition flex items-center gap-2 mx-auto"
+              >
                 Start Building Now
                 <ArrowRight className="w-5 h-5" />
-              </button>
+              </Link>
 
               <div className="flex items-center justify-center gap-6 mt-6 text-xs md:text-sm text-slate-400">
                 <div className="flex items-center gap-2">
