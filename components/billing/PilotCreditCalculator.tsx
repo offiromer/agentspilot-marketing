@@ -4,6 +4,8 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Zap, TrendingUp, Check, CheckCircle, ArrowRight } from 'lucide-react';
+import { PRICING_CONFIG } from '@/lib/config/pricingConfig';
+import { AIS_RANGES, AIS_MODE } from '@/lib/config/aisRanges';
 
 interface CalculatorInputs {
   numAgents: number;
@@ -62,78 +64,23 @@ export default function PilotCreditCalculator({
   );
 
   const [result, setResult] = useState<CalculationResult | null>(null);
-  const [config, setConfig] = useState<PricingConfig | null>(null);
-  const [aisRanges, setAisRanges] = useState<Record<string, { min: number; max: number }> | null>(null);
-  const [aisMode, setAisMode] = useState<number>(0);
-  const [fallbackCount, setFallbackCount] = useState<number>(0);
-  const [loading, setLoading] = useState(true);
+  const [config] = useState<PricingConfig>(PRICING_CONFIG);
+  const [aisRanges] = useState<Record<string, { min: number; max: number }>>(AIS_RANGES);
+  const [loading, setLoading] = useState(false);
 
-  // Fetch pricing configuration and AIS ranges from database on mount
+  // Initialize static configuration on mount
   useEffect(() => {
-    const fetchConfig = async () => {
-      try {
-        console.log('🔄 [Calculator] Fetching pricing config and AIS ranges...');
-
-        // Fetch both pricing config and AIS ranges in parallel
-        const [configResponse, aisResponse] = await Promise.all([
-          fetch('/api/pricing/config'),
-          fetch('/api/pricing/ais-ranges')
-        ]);
-
-        console.log('📊 [Calculator] Config response status:', configResponse.status);
-        console.log('📊 [Calculator] AIS response status:', aisResponse.status);
-
-        const configData = await configResponse.json();
-        const aisData = await aisResponse.json();
-
-        console.log('📊 [Calculator] Config data:', configData);
-        console.log('📊 [Calculator] AIS data:', aisData);
-
-        if (configData.success) {
-          setConfig(configData.config);
-          console.log('✅ [Calculator] Pricing config loaded:', configData.config);
-        } else {
-          console.error('❌ [Calculator] Failed to fetch pricing config:', configData.error);
-        }
-
-        if (aisData.success) {
-          setAisRanges(aisData.ranges);
-          setAisMode(aisData.activeMode);
-          setFallbackCount(aisData.fallbackCount || 0);
-          console.log(`✅ [Calculator] Using AIS ${aisData.modeDescription} ranges`);
-          console.log('📊 [Calculator] Active Mode:', aisData.activeMode);
-          console.log('📊 [Calculator] AIS ranges loaded:', Object.keys(aisData.ranges).length, 'ranges');
-          console.log('📊 [Calculator] ALL AIS ranges:', aisData.ranges);
-
-          if (aisData.fallbackCount > 0) {
-            console.warn(`⚠️ [Calculator] ${aisData.fallbackCount} ranges using best practice fallback`);
-          }
-
-          // Check for invalid ranges (min >= max)
-          const invalidRanges = Object.entries(aisData.ranges).filter(([key, range]: [string, any]) => range.max <= range.min);
-          if (invalidRanges.length > 0) {
-            console.warn('⚠️ [Calculator] Found invalid ranges (min >= max):', invalidRanges);
-          }
-        } else {
-          console.error('❌ [Calculator] Failed to fetch AIS ranges:', aisData.error);
-        }
-      } catch (error) {
-        console.error('❌ [Calculator] Error fetching pricing data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchConfig();
+    console.log('✅ [Calculator] Using static pricing configuration');
+    console.log('📊 [Calculator] Pricing config:', PRICING_CONFIG);
+    console.log('📊 [Calculator] AIS ranges:', AIS_RANGES);
+    console.log(`📊 [Calculator] AIS Mode: ${AIS_MODE.description} (${AIS_MODE.active})`);
   }, []);
 
-  // Calculate credits based on inputs using database-driven configuration and AIS ranges
+  // Calculate credits based on inputs using static configuration and AIS ranges
   useEffect(() => {
-    if (config && aisRanges) {
-      calculateCredits();
-    }
+    calculateCredits();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inputs, config, aisRanges]);
+  }, [inputs]);
 
   // Normalize value to 0-10 scale using AIS ranges
   const normalizeToScale = (value: number, rangeKey: string): number => {

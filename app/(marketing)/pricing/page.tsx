@@ -1,59 +1,16 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import PilotCreditCalculator from '@/components/billing/PilotCreditCalculator'
 import { useRouter } from 'next/navigation'
-import { supabase } from '@/lib/supabaseClient'
-import { Calculator, Zap, Repeat, CheckCircle } from 'lucide-react'
+import { Calculator, Zap, CheckCircle } from 'lucide-react'
 
 export default function PricingPage() {
   const router = useRouter()
 
   const handleSubscribe = async (monthlyCredits: number, inputs: any) => {
-    try {
-      // Check if user is authenticated
-      const { data: { user } } = await supabase.auth.getUser()
-
-      if (!user) {
-        // Not authenticated - redirect to signup page
-        // Pass calculator inputs as URL params so they can pre-fill after signup
-        router.push(`/signup?credits=${monthlyCredits}&agents=${inputs.numAgents}&plugins=${inputs.avgPluginsPerAgent}`)
-        return
-      }
-
-      // User is authenticated - create Stripe subscription
-      console.log('Creating subscription for authenticated user:', user.id)
-
-      const response = await fetch('/api/subscriptions/create', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          monthlyCredits,
-          calculatorInputs: inputs
-        })
-      })
-
-      const data = await response.json()
-
-      if (data.success) {
-        // Subscription created successfully
-        // Redirect to Stripe checkout or dashboard
-        if (data.checkoutUrl) {
-          console.log('Redirecting to Stripe checkout:', data.checkoutUrl)
-          window.location.href = data.checkoutUrl
-        } else {
-          // No checkout needed (maybe updating existing subscription)
-          console.log('Subscription updated, redirecting to dashboard')
-          router.push('/dashboard?subscription=updated')
-        }
-      } else {
-        throw new Error(data.error || 'Failed to create subscription')
-      }
-    } catch (error) {
-      console.error('Subscription error:', error)
-      alert('Failed to start subscription. Please try again or contact support.')
-    }
+    // For marketing site, always redirect to signup page with calculator inputs
+    router.push(`/signup?credits=${monthlyCredits}&agents=${inputs.numAgents}&plugins=${inputs.avgPluginsPerAgent}`)
   }
 
   const faqs = [
