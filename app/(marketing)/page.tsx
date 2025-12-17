@@ -176,10 +176,11 @@ export default function MarketingPage() {
                     value={userInput}
                     onChange={(e) => setUserInput(e.target.value)}
                     placeholder="Describe what you want done..."
-                    className="w-full px-6 py-4 bg-zinc-900 border border-zinc-700 text-white placeholder-zinc-500 focus:outline-none focus:border-orange-500 transition-colors font-mono text-sm"
+                    className="w-full px-6 py-4 pr-40 md:pr-44 bg-zinc-900 border border-zinc-700 text-white placeholder-zinc-500 focus:outline-none focus:border-orange-500 transition-colors font-mono text-sm"
                   />
-                  <button className="absolute right-2 top-1/2 -translate-y-1/2 px-6 py-2 bg-orange-500 hover:bg-orange-600 font-medium transition-colors flex items-center gap-2">
-                    Create Agent
+                  <button className="absolute right-2 top-1/2 -translate-y-1/2 px-4 md:px-6 py-2 bg-orange-500 hover:bg-orange-600 font-medium transition-colors flex items-center gap-2 text-sm md:text-base">
+                    <span className="hidden sm:inline">Create Agent</span>
+                    <span className="sm:hidden">Create</span>
                     <Send className="w-4 h-4" />
                   </button>
                 </div>
@@ -746,7 +747,7 @@ export default function MarketingPage() {
             Built for people who <span className="text-orange-500">run things</span>
           </motion.h2>
 
-          <div className="flex flex-wrap justify-center gap-3 md:gap-5">
+          <div className="grid grid-cols-2 md:flex md:flex-wrap md:justify-center gap-4 md:gap-5 max-w-4xl mx-auto">
             {[
               { icon: Users, label: "Business owners" },
               { icon: Sparkles, label: "Consultants" },
@@ -763,10 +764,10 @@ export default function MarketingPage() {
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                   whileHover={{ scale: 1.1, y: -8, transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] } }}
-                  className="bg-zinc-900 border border-zinc-800 hover:border-zinc-700 px-8 py-6 transition-colors"
+                  className="bg-zinc-900 border border-zinc-800 hover:border-zinc-700 px-6 py-6 md:px-8 transition-colors flex flex-col items-center justify-center min-h-[120px] md:min-h-[140px]"
                 >
-                  <Icon className="w-7 h-7 text-orange-500 mx-auto mb-3" />
-                  <p className="text-white font-medium text-center text-sm">{item.label}</p>
+                  <Icon className="w-7 h-7 text-orange-500 mb-3" />
+                  <p className="text-white font-medium text-center text-sm whitespace-nowrap">{item.label}</p>
                 </motion.div>
               );
             })}

@@ -440,38 +440,38 @@ const AboutPage = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="bg-zinc-900/95 backdrop-blur-2xl p-12 md:p-16 border border-zinc-800 text-center">
-              <h2 className="text-3xl md:text-4xl font-black mb-6">
+            <div className="bg-zinc-900/95 backdrop-blur-2xl p-6 md:p-12 lg:p-16 border border-zinc-800 text-center">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-black mb-4 md:mb-6">
                 Ready to Meet
                 <br />
                 <span className="text-orange-400">
                   Your AI Pilot?
                 </span>
               </h2>
-              <p className="text-base md:text-lg text-slate-300 mb-8 max-w-2xl mx-auto">
+              <p className="text-sm md:text-base lg:text-lg text-slate-300 mb-6 md:mb-8 max-w-2xl mx-auto leading-relaxed">
                 Join thousands of professionals who've discovered the power of natural-language automation.
                 Build your first agent in under 2 minutes.
               </p>
-              
+
               <Link
                 href="/signup"
-                className="px-8 py-4 bg-orange-500 hover:bg-orange-600 font-bold text-lg hover:shadow-2xl hover:shadow-orange-500/50 transition flex items-center gap-2 mx-auto"
+                className="inline-flex items-center gap-2 px-6 md:px-8 py-3 md:py-4 bg-orange-500 hover:bg-orange-600 font-bold text-base md:text-lg hover:shadow-2xl hover:shadow-orange-500/50 transition"
               >
                 Create Your First Agent
                 <ArrowRight className="w-5 h-5" />
               </Link>
 
-              <div className="flex items-center justify-center gap-6 mt-8 text-sm text-slate-400">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mt-6 md:mt-8 text-sm text-slate-400">
                 <div className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0" />
                   <span>Free to start</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  <span>No technical skills required</span>
+                  <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0" />
+                  <span className="text-center sm:text-left">No technical skills required</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0" />
                   <span>Ready in minutes</span>
                 </div>
               </div>
