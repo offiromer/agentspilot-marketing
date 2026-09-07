@@ -138,13 +138,24 @@ export default function PromptIdeasPage() {
     generateIdeas();
   }, []);
 
-  const handleSkip = () => {
-    router.push('/v2/dashboard');
+  /*
+   * Into the app, not back into this site.
+   *
+   * Both of these were `router.push('/v2/dashboard')`, which is doubly wrong:
+   * `/v2/dashboard` is the OLD interface — Business OS lives at `/business-os`
+   * — and `router.push` is same-origin, so it pushed to a path this marketing
+   * site does not have at all. Both buttons landed on a 404.
+   *
+   * Leaving for another origin needs a full navigation, the same way every
+   * other hand-off to the app on this site works.
+   */
+  const goToApp = () => {
+    const mainAppUrl = process.env.NEXT_PUBLIC_MAIN_APP_URL || 'http://localhost:3000';
+    window.location.href = `${mainAppUrl}/business-os`;
   };
 
-  const handleBrowseTemplates = () => {
-    router.push('/v2/dashboard');
-  };
+  const handleSkip = goToApp;
+  const handleBrowseTemplates = goToApp;
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">

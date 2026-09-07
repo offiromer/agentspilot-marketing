@@ -81,11 +81,6 @@ export default function AuthCallbackPage() {
           // Don't fail - continue to onboarding
         }
 
-        // Check onboarding status from user metadata
-        const onboardingCompleted = user.user_metadata?.onboarding_completed;
-
-        console.log('Onboarding status:', onboardingCompleted);
-
         // AUDIT TRAIL: Log OAuth login
         try {
           const provider = user.app_metadata?.provider || 'unknown';
@@ -124,19 +119,23 @@ export default function AuthCallbackPage() {
         const accessToken = data.session?.access_token;
         const refreshToken = data.session?.refresh_token;
 
-        if (onboardingCompleted === false || onboardingCompleted === undefined) {
-          // User hasn't completed onboarding - redirect to main app onboarding
-          console.log('User needs to complete onboarding, redirecting to main app onboarding...');
-          setTimeout(() => {
-            window.location.href = `${mainAppUrl}/onboarding#access_token=${accessToken}&refresh_token=${refreshToken}`;
-          }, 1000);
-        } else {
-          // Onboarding complete - go to main app v2 dashboard
-          console.log('Onboarding already completed, redirecting to main app v2 dashboard...');
-          setTimeout(() => {
-            window.location.href = `${mainAppUrl}/v2/dashboard#access_token=${accessToken}&refresh_token=${refreshToken}`;
-          }, 1000);
-        }
+        /*
+         * One destination, and the app decides where it leads.
+         *
+         * `/onboarding-chat` reads `business_profiles.onboarding_completed` on
+         * arrival and pushes an existing business straight to `/business-os`,
+         * so there is nothing to decide here — and `business_profiles` is the
+         * trustworthy source, where `user_metadata` is a copy nothing keeps in
+         * step.
+         *
+         * The route name matters: `/onboarding` and `/onboarding-v2` do not
+         * exist in the app. The real ones are `/onboarding-chat` and
+         * `/onboarding-build`.
+         */
+        console.log('Redirecting to main app onboarding...');
+        setTimeout(() => {
+          window.location.href = `${mainAppUrl}/onboarding-chat#access_token=${accessToken}&refresh_token=${refreshToken}`;
+        }, 1000);
       } catch (err) {
         console.error('Unexpected error in auth callback:', err);
         setStatus('error');

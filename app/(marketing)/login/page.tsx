@@ -112,22 +112,28 @@ export default function LoginPage() {
           console.error('Audit logging failed (non-critical):', auditError);
         }
 
-        // Redirect to main app with session tokens
-        const user = data.user;
+        /*
+         * One destination, and the app decides where it leads.
+         *
+         * This branched on `user_metadata.onboarding_completed` and sent people
+         * to one of two routes. Both were wrong:
+         *
+         *   `/onboarding`     does not exist in the app — the routes are
+         *                     `/onboarding-chat` and `/onboarding-build`
+         *   `/v2/dashboard`   exists, and is the OLD interface. Business OS is
+         *                     at `/business-os`, and nothing sent anyone there,
+         *                     which is why signing in landed you in V2.
+         *
+         * `/onboarding-chat` settles it on arrival: it reads
+         * `business_profiles.onboarding_completed` and pushes an existing
+         * business straight to `/business-os`. That is also the trustworthy
+         * source — `user_metadata` is a copy that nothing keeps in step, so a
+         * user who finished onboarding could still be told they had not.
+         */
         const session = data.session;
-        const onboardingCompleted = user?.user_metadata?.onboarding_completed;
-
         const mainAppUrl = process.env.NEXT_PUBLIC_MAIN_APP_URL || 'http://localhost:3000';
 
-        if (onboardingCompleted === false || onboardingCompleted === undefined) {
-          // User hasn't completed onboarding - redirect to main app onboarding
-          console.log('User needs to complete onboarding, redirecting to main app...');
-          window.location.href = `${mainAppUrl}/onboarding#access_token=${session?.access_token}&refresh_token=${session?.refresh_token}`;
-        } else {
-          // Onboarding complete - redirect to main app dashboard
-          console.log('Login successful, redirecting to main app dashboard...');
-          window.location.href = `${mainAppUrl}/v2/dashboard#access_token=${session?.access_token}&refresh_token=${session?.refresh_token}`;
-        }
+        window.location.href = `${mainAppUrl}/onboarding-chat#access_token=${session?.access_token}&refresh_token=${session?.refresh_token}`;
       }
     } catch (error) {
       setErrorMessage('An unexpected error occurred. Please try again.');

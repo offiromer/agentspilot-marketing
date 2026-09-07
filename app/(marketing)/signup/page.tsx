@@ -294,10 +294,12 @@ export default function SignupPage() {
         );
         setTimeout(() => router.push('/'), 2000);
       } else {
-        // Email confirmation disabled - redirect to main app onboarding
+        // Email confirmation disabled - redirect to main app onboarding.
+        // `/onboarding-chat`, not `/onboarding`: the latter is not a route in
+        // the app, so this sent every new signup to a 404.
         setSuccessMessage('Account created successfully! Redirecting to setup...');
         setTimeout(() => {
-          window.location.href = `${mainAppUrl}/onboarding#access_token=${session.access_token}&refresh_token=${session.refresh_token}`;
+          window.location.href = `${mainAppUrl}/onboarding-chat#access_token=${session.access_token}&refresh_token=${session.refresh_token}`;
         }, 1500);
       }
     } catch (error) {
